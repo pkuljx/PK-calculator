@@ -61,6 +61,29 @@ Present results as markdown tables. Always show:
 
 All formulas, constants, and step-by-step calculation procedures are in `references/formulas.md`. Read that file before performing any calculation.
 
+## Reference implementation (`pk_calculator.py`)
+
+A validated Python reference implementation of all 8 methods lives at the repo root as `pk_calculator.py`. **Prefer running it over reproducing math by hand** — it eliminates arithmetic drift between conversations.
+
+Import:
+```python
+from pk_calculator import (
+    ivive, allometry_cl, allometry_vss, fcim,
+    wajima_cl, wajima_vss, obach_vss, oie_tozer_vss, half_life,
+)
+```
+
+CLI (JSON in / JSON out):
+```bash
+python pk_calculator.py list-methods
+echo '{"Vss_dog":3.0,"fu_dog":0.2,"fu_human":0.05}' \
+    | python pk_calculator.py run obach-vss -i -
+```
+
+Method keys: `ivive`, `allometry-cl`, `allometry-vss`, `fcim`,
+`wajima-cl`, `wajima-vss`, `obach-vss`, `oie-tozer-vss`, `half-life`.
+Payload keys match each function's parameters (see docstrings).
+
 ## Half-life Estimation
 
 Once both CL and Vss are predicted, estimate human half-life:
